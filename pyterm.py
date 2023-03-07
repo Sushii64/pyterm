@@ -7,12 +7,25 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 username = input('Enter your username: ')
 
+root = False
+
+if username == 'root':
+    repeating = True
+    while repeating:
+        passwd = input('Enter password for root: ')
+        if passwd == 'root':
+            root = True
+            break
+        else:
+            print('Incorrect password.')
+            continue
+
 os.system('cls' if os.name == 'nt' else 'clear')
 
 def terminal():
     powerON = True
-    version = 'v1.1'
-    versionName = 'Package Party'
+    version = 'v1.2'
+    versionName = 'Minor Modifications'
     helpCommand = '''
     quit - Quits the terminal.
     help - Shows this message.
@@ -29,12 +42,14 @@ def terminal():
     pios
     eightball
     versiongen
+    madlibs
     '''
     installedPix = False
     installedBlankPKG = False
     installedPIOS = False
     installedEightBall = False
     installedVersionGen = False
+    installedMadLibs = False
     while powerON:
         prompt = input(f'\u001b[37m{username}@pyterm:~$ ')
         if prompt == 'quit':
@@ -54,33 +69,103 @@ def terminal():
         elif prompt == 'installer':
             installPrompt = input(f'\u001b[37m{username}@pyterm.Installer >>> ')
             if installPrompt == 'pix':
-                print('\u001b[0mInstalling package "pix"...')
-                time.sleep(1)
-                installedPix = True
+                if installedPix:
+                    print('\u001b[0mpix is already installed.')
+                else:
+                    print('\u001b[0mInstalling package "pix"...')
+                    time.sleep(1)
+                    installedPix = True
                 continue
             elif installPrompt == 'blankpkg':
-                print('\u001b[0mInstalling package "blankpkg"...')
-                time.sleep(.5)
-                installedBlankPKG = True
+                if installedBlankPKG:
+                    print('\u001b[0mblankpkg is already installed.')
+                else:
+                    print('\u001b[0mInstalling package "blankpkg"...')
+                    time.sleep(.5)
+                    installedBlankPKG = True
                 continue
             elif installPrompt == 'pios':
-                print('\u001b[0mInstalling package "pios"...')
-                time.sleep(2)
-                installedPIOS = True
+                if installedPIOS:
+                    print('\u001b[0mpios is already installed.')
+                else:
+                    print('\u001b[0mInstalling package "pios"...')
+                    time.sleep(2)
+                    installedPIOS = True
                 continue
             elif installPrompt == 'eightball':
-                print('\u001b[0mInstalling package "eightball"...')
-                time.sleep(3)
-                installedEightBall = True
+                if installedEightBall:
+                    print('\u001b[0meightball is already installed.')
+                else:
+                    print('\u001b[0mInstalling package "eightball"...')
+                    time.sleep(3)
+                    installedEightBall = True
                 continue
             elif installPrompt == 'versiongen':
-                print('\u001b[0mInstalling package "versiongen"...')
-                time.sleep(2)
-                installedVersionGen = True
+                if installedVersionGen:
+                    print('\u001b[0mversiongen is already installed.')
+                else:
+                    print('\u001b[0mInstalling package "versiongen"...')
+                    time.sleep(2)
+                    installedVersionGen = True
                 continue
+            elif installPrompt == 'madlibs':
+                if installedMadLibs:
+                    print('\u001b[0mmadlibs is already installed.')
+                else:
+                    print('\u001b[0mInstalling package "madlibs"...')
+                    time.sleep(1)
+                    installedMadLibs = True
             elif installPrompt == 'list':
                 print(f'\u001b[0m{availablePackages}')
                 continue
+            elif installPrompt == '*':
+                yn = input('\u001b[0mAre you sure you want to install every package? [Y/N] ')
+                if yn == 'Y' or yn == 'y':
+                    if installedPix:
+                        print('\u001b[0mpix is already installed.')
+                        time.sleep(.1)
+                    else:
+                        print('\u001b[0mInstalling package "pix"...')
+                        time.sleep(1)
+                    installedPix = True
+                    if installedBlankPKG:
+                        print('\u001b[0mblankpkg is already installed.')
+                        time.sleep(.1)
+                    else:
+                        print('\u001b[0mInstalling package "blankpkg"...')
+                        time.sleep(.5)
+                        installedBlankPKG = True
+                    if installedPIOS:
+                        print('\u001b[0mpios is already installed.')
+                        time.sleep(.1)
+                    else:
+                        print('\u001b[0mInstalling package "pios"...')
+                        time.sleep(2)
+                        installedPIOS = True
+                    if installedEightBall:
+                        print('\u001b[0meightball is already installed.')
+                        time.sleep(.1)
+                    else:
+                        print('\u001b[0mInstalling package "eightball"...')
+                        time.sleep(3)
+                        installedEightBall = True
+                    if installedVersionGen:
+                        print('\u001b[0mversiongen is already installed.')
+                        time.sleep(.1)
+                    else:
+                        print('\u001b[0mInstalling package "versiongen"...')
+                        time.sleep(2)
+                        installedVersionGen = True
+                    if installedMadLibs:
+                        print('\u001b[0mmadlibs is already installed.')
+                    else:
+                        print('\u001b[0mInstalling package "madlibs"...')
+                        time.sleep(1)
+                        installedMadLibs = True
+                    continue
+                else:
+                    print('\u001b[0mAbort.')
+                    continue
             else:
                 print(f'\u001b[31mPackage "{installPrompt}" not found.')
                 continue
@@ -138,7 +223,7 @@ def terminal():
                 continue
         elif prompt == 'eightball':
             if installedEightBall:
-                question = input('Ask your question: ')
+                question = input('\u001b[0mAsk your question: ')
 
                 def eightball(str):
                     options = ['yes', 'no', 'maybe', 'ask again later', 'yes, definitely', 'without a doubt', 'it is certain', 'most likely', 'absolutely not']
@@ -157,7 +242,7 @@ def terminal():
         elif prompt == 'versiongen':
             if installedVersionGen:
                 os.system('cls' if os.name == 'nt' else 'clear')
-                answer = input('Select a style: [S]eperated [C]ombined ')
+                answer = input('\u001b[0mSelect a style: [S]eperated [C]ombined ')
 
                 t = d.now()
                 cdt = t.strftime('%Y%m%d')
@@ -177,6 +262,27 @@ def terminal():
                     continue
             else:
                 print('\u001b[31mCommand "versiongen" not found.')
+                continue
+        elif prompt == 'madlibs':
+            if installedMadLibs:
+                adjective = input('\u001b[0mChoose an adjective: ')
+                p_noun = input('Choose a plural noun: ')
+                noun = input('Choose a noun: ')
+                place = input('Name a place: ')
+                adjective2 = input('Choose an adjective: ')
+                noun2 = input('Choose a noun: ')
+
+                print('------------------------------------------')
+                print('Be kind to your', adjective, p_noun)
+                print('For a duck may be somebody\'s', noun + ',')
+                print('Be kind to your', p_noun, 'in', place)
+                print('Where the weather is always', adjective2 + '. \n')
+                print('You may think that this is the', noun2 + ',')
+                print('Well it is.')
+                print('------------------------------------------')
+                continue
+            else:
+                print('\u001b[31mCommand "madlibs" not found.')
                 continue
         else:
             print(f'\u001b[31mCommand "{prompt}" not found.')
@@ -199,14 +305,14 @@ terminal()
 # versionCheckENCODED = versionCheckRAW.read()
 # versionCheck = versionCheckENCODED.decode("utf-8")
 #
-# versionInternal = 'v1.0'
+# versionInternal = 'v1.2'
 #
 # if not versionCheck == versionInternal:
-#    print('\u001b[31mYou have an outdated version of PyTerm!\nYour version:' + str(versionInternal) + '\nLatest version:' + str(versionCheck) + '\nPlease update!')
+#    print(f'\u001b[31mYou have an outdated version of PyTerm!\nYour version: {versionInternal}\nLatest version: {versionCheck}\nPlease update!')
 ###
 
 ###
 #       elif prompt == 'changelog':
-#            print('\u001b[0m' + str(changelogSource))
+#            print(f'\u001b[0m{changelogSource}')
 #            continue
 ###
