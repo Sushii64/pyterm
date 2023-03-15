@@ -19,6 +19,8 @@ open the python file.
 
 type `help` to list the commands you can use
 
+you need the `pyfiglet` package
+
 ## installer
 
 use `list` to list the available "packages"
