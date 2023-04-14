@@ -21,7 +21,7 @@ type `help` to list the commands you can use
 
 there are required packages for this to work.
 
-to install them, run `pip install -r requirements.txt` in your termina.
+to install them, run `pip install -r requirements.txt` in your terminal.
 
 ## ~~installer~~
 
