@@ -4,12 +4,54 @@ import random
 from datetime import datetime as d
 import pyfiglet
 
+version = '1.4'
+versionName = 'Modification Mayhem'
+
 def clearscreen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 clearscreen()
 
-username = input('Enter your username: ')
+print(f'''
+ ____       _____                   
+|  _ \ _   |_   _|__ _ __ _ __ ___  
+| |_) | | | || |/ _ \ '__| '_ ` _ \ 
+|  __/| |_| || |  __/ |  | | | | | |
+|_|    \__, ||_|\___|_|  |_| |_| |_|
+       |___/                        
+Version {version}: "{versionName}"
+'''
+)
+
+try:
+    I = input('[L]ogin, [O]ptions, or [Q]uit ')
+except KeyboardInterrupt:
+    print('\nAbort.')
+    quit()
+
+if I == 'L' or I == 'l':
+    try:
+        username = input('Enter your username: ')
+    except KeyboardInterrupt:
+        print('\nAbort.')
+        quit()
+elif I == 'Q' or I == 'q':
+    try:
+        print('Abort.')
+        quit()
+    except KeyboardInterrupt:
+        print('\nAbort.')
+        quit()
+else:
+    try:
+        print('Options not implemented yet.')
+        time.sleep(0.05)
+        print('Saving...')
+        time.sleep(0.2)
+        quit()
+    except KeyboardInterrupt:
+        print('\nAbort.')
+        quit()
 
 root = False
 
@@ -26,8 +68,6 @@ if username == 'root':
 
 clearscreen()
 
-version = '1.3'
-versionName = 'The Rewrite'
 helpCommand = '''
     quit - Quits the terminal.
     help - Shows this message.
@@ -35,7 +75,7 @@ helpCommand = '''
     clear (cls) - Clears the screen.
     ver - Prints the current version.
     echo - Repeats what you tell it to.
-    figlet - Makes ASCII art of text.
+    fig - Makes ASCII art of text.
 '''
 helpList = {
     'quit': '''\n    quit - Quits the terminal.\n    Usage: quit\n''',
@@ -44,8 +84,8 @@ helpList = {
     'clear': '''\n    clear - Clears the screen.\n    Usage: clear (or cls)\n''',
     'cls': '''\n    cls - Clears the screen.\n    Usage: cls (or clear)\n''',
     'ver': '''\n    ver - Prints the current version.\n    Usage: ver\n''',
-    'echo': '''\n    echo - Repeats what you tell it to.\n    Usage: echo [arg] [string]\n    Arguments: -u - Uppercase.\n''',
-    'figlet': '''\n    figlet - Makes ASCII art of text.\n    Usage: figlet [string]'''
+    'echo': '''\n    echo - Repeats what you tell it to.\n    Usage: echo [arg] [string]\n    Arguments:\n    -u - Uppercase.\n    -l - Lowercase.\n    -sc - Swap case.\n    -r - Reversed.\n    -se - Seperate letters\n''',
+    'fig': '''\n    fig - Makes ASCII art of text.\n    Usage: fig [string]\n'''
 }
 
 class commands:
@@ -71,6 +111,16 @@ class commands:
         try:
             if '-u' in prompt:
                 text = prompt.split('-u')[1].strip().upper()
+            elif '-l' in prompt:
+                text = prompt.split('-l')[1].strip().lower()
+            elif '-sc' in prompt:
+                text = prompt.split('-sc')[1].strip().swapcase()
+            elif '-r' in prompt:
+                text = prompt.split('-r')[1].strip()[::-1]
+            elif '-se' in prompt: 
+                textB = prompt.split('-se')[1].strip()
+                textL = [*textB]
+                text = ' '.join(textL)
             else:
                 text = prompt.split('echo ')[1].strip()
             print(text)
@@ -89,7 +139,7 @@ commandList = {
     'cls': commands.clear,
     'ver': commands.version,
     'echo': commands.echo,
-    'figlet': commands.figlet
+    'fig': commands.figlet
 }
 
 power = 'on'
