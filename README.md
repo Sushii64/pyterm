@@ -19,10 +19,14 @@ open the python file.
 
 type `help` to list the commands you can use
 
-you need the `pyfiglet` package
+there are required packages for this to work.
 
-## installer
+to install them, run `pip install -r requirements.txt` in your termina.
 
-use `list` to list the available "packages"
+## ~~installer~~
 
-then re-open the installer and type a package name
+~~use `list` to list the available "packages"~~
+
+~~then re-open the installer and type a package name~~
+
+currently not implemented
