@@ -11,7 +11,7 @@ oh
 
 # demo
 
-[pyterm moment.webm](https://user-images.githubusercontent.com/76448871/222781456-d23fffb3-6064-4f90-a8cf-daac0cdcad1c.webm)
+[pyterm.webm](https://user-images.githubusercontent.com/76448871/232523247-669df8e8-3865-4283-87e2-a3f8b15cf672.webm)
 
 # usage
 
