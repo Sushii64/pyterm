@@ -3,9 +3,12 @@ import time
 import random
 from datetime import datetime as d
 import pyfiglet
+import colorama
+from colorama import Fore
 
-version = '1.4'
-versionName = 'Modification Mayhem'
+version = '1.5'
+versionName = 'Options, Oh My'
+Cn = 'pyterm'
 
 def clearscreen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -44,11 +47,51 @@ elif I == 'Q' or I == 'q':
         quit()
 else:
     try:
-        print('Options not implemented yet.')
+        O = input('Options\n--------\n[T]erminal Color\n[L]icense\n"[C]omputer" Name\n')
+        if O == 'T' or O == 't':
+            Ch = input('Colors\n--------\n[D]efault\n[W]hite\n[R]ed\n[Y]ellow\n[G]reen\n[B]lue\n[C]yan\n[M]agenta\n')
+            if Ch == 'D' or Ch == 'd':
+                print(Fore.RESET)
+                print('Color set.')
+            elif Ch == 'W' or Ch == 'w':
+                print(Fore.WHITE)
+                print('Color set.')
+            elif Ch == 'R' or Ch == 'r':
+                print(Fore.RED)
+                print('Color set.')
+            elif Ch == 'Y' or Ch == 'y':
+                print(Fore.YELLOW)
+                print('Color set.')
+            elif Ch == 'G' or Ch == 'g':
+                print(Fore.GREEN)
+                print('Color set.')
+            elif Ch == 'B' or Ch == 'b':
+                print(Fore.BLUE)
+                print('Color set.')
+            elif Ch == 'C' or Ch == 'c':
+                print(Fore.CYAN)
+                print('Color set.')
+            elif Ch == 'M' or Ch == 'm':
+                print(Fore.MAGENTA)
+                print('Color set.')
+            else:
+                print(Fore.RESET)
+                print('Defaulting.')
+        elif O == 'L' or O == 'l':
+            Li = open("LICENSE", "r")
+            print(Li.read())
+            Li.close()
+        elif O == 'C' or O == 'c':
+            Cn = input('\nusername@pyterm\n\nWhat do you want to change "pyterm" to?\n')
+            print(f'"Computer" name set as "{Cn}"\n')
         time.sleep(0.05)
         print('Saving...')
         time.sleep(0.2)
-        quit()
+        try:
+            username = input('Enter your username: ')
+        except KeyboardInterrupt:
+            print('\nAbort.')
+            quit()
     except KeyboardInterrupt:
         print('\nAbort.')
         quit()
@@ -126,7 +169,6 @@ class commands:
             print(text)
         except IndexError:
             print('Missing argument for echo command.')
-
     
     def figlet(arg):
         pyfiglet.print_figlet(arg)
@@ -145,7 +187,7 @@ commandList = {
 power = 'on'
 while power == 'on':
     try:
-        prompt = input(f'{username}@pyterm:~$ ')
+        prompt = input(f'{username}@{Cn}:~$ ')
         if prompt.split():
             commandInput = prompt.split()
             command = commandInput[0]
