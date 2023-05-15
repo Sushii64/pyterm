@@ -6,11 +6,11 @@ import pyfiglet
 import colorama
 from colorama import Fore
 
-version = '1.5'
-versionName = 'Options, Oh My'
+version = '1.6'
+versionName = 'Package Party 2'
 Cn = 'pyterm'
 
-def clearscreen():
+def clearscreen(): 
     os.system('cls' if os.name == 'nt' else 'clear')
 
 clearscreen()
@@ -118,7 +118,7 @@ helpCommand = '''
     clear (cls) - Clears the screen.
     ver - Prints the current version.
     echo - Repeats what you tell it to.
-    fig - Makes ASCII art of text.
+    parcel - Installs new packages to use.
 '''
 helpList = {
     'quit': '''\n    quit - Quits the terminal.\n    Usage: quit\n''',
@@ -128,8 +128,41 @@ helpList = {
     'cls': '''\n    cls - Clears the screen.\n    Usage: cls (or clear)\n''',
     'ver': '''\n    ver - Prints the current version.\n    Usage: ver\n''',
     'echo': '''\n    echo - Repeats what you tell it to.\n    Usage: echo [arg] [string]\n    Arguments:\n    -u - Uppercase.\n    -l - Lowercase.\n    -sc - Swap case.\n    -r - Reversed.\n    -se - Seperate letters\n''',
-    'fig': '''\n    fig - Makes ASCII art of text.\n    Usage: fig [string]\n'''
+    'parcel': '''\n    parcel - Installs new packages to use.\n    Usage: parcel [arg] [package]\n    Use "parcel help" to see all the usable arguments\n'''
 }
+
+class package:
+    def figlet(arg):
+        pyfiglet.print_figlet(arg)
+    
+    def ball(arg):
+        responses = [
+            "It is certain.",
+            "It is decidedly so.",
+            "Without a doubt.",
+            "Yes - definitely.",
+            "You may rely on it.",
+            "As I see it, yes.",
+            "Most likely.",
+            "Outlook good.",
+            "Yes.",
+            "Signs point to yes.",
+            "Reply hazy, try again.",
+            "Ask again later.",
+            "Better not tell you now.",
+            "Cannot predict now.",
+            "Concentrate and ask again.",
+            "Don't count on it.",
+            "My reply is no.",
+            "My sources say no.",
+            "Outlook not so good.",
+            "Very doubtful."
+        ]
+
+        answer = random.choice(responses)
+        if not arg == '':
+            print(arg)
+        print("My answer is:", answer)
 
 class commands:
     def kill(arg):
@@ -170,8 +203,71 @@ class commands:
         except IndexError:
             print('Missing argument for echo command.')
     
-    def figlet(arg):
-        pyfiglet.print_figlet(arg)
+    def cfiglet(arg):
+        if 'fig' in installed:
+            package.figlet(arg)
+        else:
+            print('Command "fig" not found.')
+    
+    def cball(arg):
+        if '8ball' in installed:
+            package.ball(arg)
+        else:
+            print('Command "8ball" not found.')
+
+    def package(arg):
+        try:
+            if 'help' in prompt:
+                reply = '\n    PkgMaster v1.0\n    -----------\n    help - Shows this message.\n    get - Installs a package.\n    remove - Removes a package.\n    list\n        -a - Lists the available packages.\n        -i - Lists the installed packages.\n'
+            elif 'get' in prompt:
+                argu = prompt.split('get')[1].strip()
+                if not argu == '':
+                    if argu in pkgList:
+                        reply = f'Installing package "{argu}"'
+                        installPackage(argu)
+                        time.sleep(0.2)
+                    else:
+                        reply = f'Incorrect package "{argu}"'
+                else:
+                    reply = 'Missing package name.'
+            elif 'remove' in prompt:
+                argu = prompt.split('remove')[1].strip()
+                if not argu == '':
+                    if argu in installed:
+                        reply = f'Uninstalling package "{argu}"'
+                        rmpkg(argu)
+                        time.sleep(0.2)
+                    else:
+                        reply = f'Incorrect package "{argu}"'
+                else:
+                    reply = 'Missing package name.'
+            elif 'list -i' in prompt:
+                reply = " ".join(installed)
+            elif 'list -a' in prompt:
+                reply = " ".join(pkgList)
+            else:
+                reply = 'Incorrect argument. Use "parcel help".'
+            print(reply)
+        except IndexError:
+            print('Missing argument for parcel command.')
+
+pkgList = [
+    'fig',
+    '8ball'
+]
+
+installed = [
+]
+
+def installPackage(pkg):
+    if pkg in pkgList:
+        installed.append(pkg)
+        pkgList.remove(pkg)
+
+def rmpkg(pkg):
+    if pkg in installed:
+        installed.remove(pkg)
+        pkgList.append(pkg)
 
 commandList = {
     'quit': commands.kill,
@@ -181,7 +277,9 @@ commandList = {
     'cls': commands.clear,
     'ver': commands.version,
     'echo': commands.echo,
-    'fig': commands.figlet
+    'parcel': commands.package,
+    'fig': commands.cfiglet,
+    '8ball': commands.cball
 }
 
 power = 'on'
